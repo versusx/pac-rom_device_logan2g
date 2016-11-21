@@ -1,0 +1,64 @@
+#
+# system.prop for logan2g
+#
+ro.sf.lcd_density=240
+ro.sf.lcd_width = 52
+ro.sf.lcd_height = 87
+ro.opengles.version=131072
+ro.product.hardware=logan
+ro.lcd_brightness=160
+debug.hwui.render_dirty_regions=false
+
+# delay for ConnectivityChange broadcast (ms)
+conn.connectivity_change_delay = 0
+
+# NK console device
+persist.ttydev=ttyVUART0
+
+# MultiTouch support
+ro.product.multi_touch_enabled=true
+ro.product.max_num_touch=2
+
+# RIL
+ril.sim2.present=1
+persist.radio.multisim.config=dsds
+ro.ril.hsxpa=1
+persist.msms.phone_count=2
+
+ro.secure=0
+ro.adb.secure=0
+service.adb.root=1
+ro.allow.mock.location=1
+ro.debuggable=1
+
+persist.sys.storage_preload=1
+rild.libpath=/system/lib/libsec-ril.so
+rild.libargs=-d /dev/ttyS0
+
+
+ro.kernel.qemu=0
+persist.sys.force_highendgfx=true
+
+#low RAM optimizations
+config.disable_atlas=true
+dalvik.vm.jit.codecachesize=0
+ro.config.max_starting_bg=8
+ro.sys.fw.bg_apps_limit=16
+
+#Awesome player lateness in ms
+awesome.lateness=200
+gralloc.use_sync_mode=true
+#Streaming player EOS timeout
+nuplayer.eos.timeout=3
+
+#Use vendor/platform codecs in Metadata retriever (for Hawaii H.264)
+sf.metadata_use_plat_sw_codecs=1
+
+#Use vendor/hw codecs in Metadata retriever
+sf.metadata_retrv_hw_codecs=1
+
+# Low memory device
+ro.config.low_ram=false
+
+# Media
+persist.sys.media.use-awesome=true
