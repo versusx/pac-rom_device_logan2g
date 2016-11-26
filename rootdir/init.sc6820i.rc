@@ -1,4 +1,5 @@
 import init.sc6820i.usb.rc
+import /init.swap.rc
 on init
     stop ril-daemon
 # See storage config details at http://source.android.com/tech/storage/

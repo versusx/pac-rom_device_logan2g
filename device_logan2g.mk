@@ -27,6 +27,9 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 # Use the Dalvik VM specific for devices with 512 MB of RAM
 $(call inherit-product, frameworks/native/build/phone-hdpi-512-dalvik-heap.mk)
 
+PRODUCT_PACKAGES += \
+	libengclient
+
 # overlays
 DEVICE_PACKAGE_OVERLAYS += device/samsung/logan2g/overlay
 
@@ -40,6 +43,8 @@ $(shell ln -sf -t $(LOCAL_PATH)/../../../out/target/product/logan2g/recovery/roo
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/init.sc6820i.rc:root/init.sc6820i.rc \
     $(LOCAL_PATH)/rootdir/init.sc6820i.usb.rc:root/init.sc6820i.usb.rc \
+	$(LOCAL_PATH)/rootdir/init.swap.rc:root/init.swap.rc \
+	$(LOCAL_PATH)/rootdir/fstab.swap:root/fstab.swap\
     $(LOCAL_PATH)/rootdir/fstab.sc6820i:root/fstab.sc6820i \
 	$(LOCAL_PATH)/rootdir/lpm.rc:root/lpm.rc \
     $(LOCAL_PATH)/rootdir/ueventd.sc6820i.rc:root/ueventd.sc6820i.rc \
@@ -49,7 +54,8 @@ PRODUCT_COPY_FILES += \
 
 # Camera
 PRODUCT_PACKAGES += \
-	camera.sc6820i
+	camera.sc6820i \
+	camera2.sc6820i
 	
 # Graphics
 PRODUCT_PACKAGES += \
@@ -74,11 +80,15 @@ PRODUCT_PACKAGES += \
 
 # Audio
 PRODUCT_PACKAGES += \
-    audio.a2dp.default \
-    audio.usb.default \
-    audio.r_submix.default \
-    tinymix \
-    libtinyalsa
+	audio.primary.sc6820i \
+	audio_policy.sc6820i \
+	audio.r_submix.default \
+	audio.usb.default \
+	audio_vbc_eq \
+	libaudio-resampler \
+	libatchannel \
+	libatchannel_wrapper \
+	libtinyalsa
     
 # Board-Pecific
 PRODUCT_PACKAGES += \
@@ -133,6 +143,35 @@ $(call inherit-product, hardware/broadcom/wlan/bcmdhd/config/config-bcm.mk)
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.opengles.version=131072 \
 
+# Codecs
+PRODUCT_PACKAGES += \
+	libstagefrighthw \
+	libstagefright_sprd_soft_mpeg4dec \
+	libstagefright_sprd_soft_h264dec \
+	libstagefright_sprd_mpeg4dec \
+	libstagefright_sprd_mpeg4enc \
+	libstagefright_sprd_h264dec \
+	libstagefright_sprd_h264enc \
+	libstagefright_sprd_vpxdec \
+	libstagefright_sprd_aacdec \
+	libstagefright_sprd_mp3dec \
+	libomx_aacdec_sprd.so \
+	libomx_avcdec_hw_sprd.so \
+	libomx_avcdec_sw_sprd.so \
+	libomx_avcenc_hw_sprd.so \
+	libomx_m4vh263dec_hw_sprd.so \
+	libomx_m4vh263dec_sw_sprd.so \
+	libomx_m4vh263enc_hw_sprd.so \
+	libomx_mp3dec_sprd.so \
+	libomx_vpxdec_hw_sprd.so
+
+# Media config
+MEDIA_CONFIGS := \
+	$(LOCAL_PATH)/media/media_codecs.xml \
+	$(LOCAL_PATH)/media/media_profiles.xml \
+	frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml \
+	frameworks/av/media/libstagefright/data/media_codecs_google_video.xml \
+	frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml
 
 # These are the hardware-specific settings that are stored in system properties.
 # Note that the only such settings should be the ones that are too low-level to
@@ -143,6 +182,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Hw params
 PRODUCT_COPY_FILES += \
+     $(LOCAL_PATH)/configs/audio/audio_hw.xml:system/etc/audio_hw.xml \
      $(LOCAL_PATH)/hw_params/audio_para:system/etc/audio_para \
      $(LOCAL_PATH)/hw_params/codec_pga.xml:system/etc/codec_pga.xml\
      $(LOCAL_PATH)/hw_params/tiny_hw.xml:system/etc/tiny_hw.xml
@@ -190,26 +230,12 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	dalvik.vm.dex2oat-Xms=8m \
 	dalvik.vm.dex2oat-Xmx=96m \
 	dalvik.vm.dex2oat-flags=--no-watch-dog \
-	dalvik.vm.dex2oat-filter=interpret-only \
+	dalvik.vm.dex2oat-filter=speed \
 	dalvik.vm.image-dex2oat-Xms=48m \
 	dalvik.vm.image-dex2oat-Xmx=48m \
-	dalvik.vm.image-dex2oat-filter=speed
+	dalvik.vm.image-dex2oat-filter=everything
 
-# Audio
-PRODUCT_PACKAGES += \
-	audio.a2dp.default \
-	audio.primary.sc6820i \
-	audio.r_submix.default \
-	audio.usb.default \
-	audio_vbc_eq \
-	libaudio-resampler \
-	libatchannel \
-	libtinyalsa
-    
-# Force use old camera api
-PRODUCT_PROPERTY_OVERRIDES += \
-    camera2.portability.force_api=1
-    
+
 PRODUCT_TAGS += dalvik.gc.type-precise 
     
 # Boot animation
