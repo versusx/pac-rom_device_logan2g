@@ -80,8 +80,8 @@ PRODUCT_PACKAGES += \
 
 # Audio
 PRODUCT_PACKAGES += \
+	audio.a2dp.default \
 	audio.primary.sc6820i \
-	audio_policy.sc6820i \
 	audio.r_submix.default \
 	audio.usb.default \
 	audio_vbc_eq \
@@ -96,7 +96,7 @@ PRODUCT_PACKAGES += \
 
 # Set default USB interface
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-	persist.sys.usb.config=mtp
+	persist.sys.usb.config=mtp,adb
 
 # Charger
 PRODUCT_PACKAGES += \
@@ -235,6 +235,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	dalvik.vm.image-dex2oat-Xmx=48m \
 	dalvik.vm.image-dex2oat-filter=everything
 
+# Force use old camera api
+PRODUCT_PROPERTY_OVERRIDES += \
+    camera2.portability.force_api=1
 
 PRODUCT_TAGS += dalvik.gc.type-precise 
     

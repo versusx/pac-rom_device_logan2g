@@ -8,7 +8,7 @@ ro.opengles.version=131072
 ro.product.hardware=logan
 ro.lcd_brightness=160
 debug.hwui.render_dirty_regions=false
-ro.crypto.state=unsupported
+
 # delay for ConnectivityChange broadcast (ms)
 conn.connectivity_change_delay = 0
 
@@ -24,8 +24,7 @@ ril.sim2.present=1
 persist.radio.multisim.config=dsds
 ro.ril.hsxpa=1
 persist.msms.phone_count=2
-ro.ril.telephony.mqanelements=5
-ro.multisim.simslotcount=2
+
 
 ro.secure=0
 ro.adb.secure=0
