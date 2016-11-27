@@ -184,4 +184,5 @@ BOARD_SEPOLICY_UNION += \
     surfaceflinger.te \
     netd.te \
     slog.te \
-    pty_symlink.te
+    pty_symlink.te \
+	at_distributor.te
