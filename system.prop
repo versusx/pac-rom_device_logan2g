@@ -36,8 +36,6 @@ persist.sys.storage_preload=1
 rild.libpath=/system/lib/libsec-ril.so
 rild.libargs=-d /dev/ttyS0
 
-
-ro.kernel.qemu=0
 persist.sys.force_highendgfx=true
 
 #low RAM optimizations
